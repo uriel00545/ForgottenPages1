@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background: #12122a; -fx-background-color: #12122a;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ForgottenPages.controller.RunShopController">
+    <content>
+        <VBox alignment="CENTER" prefWidth="620" spacing="14" style="-fx-background-color: #12122a;">
+            <padding><Insets bottom="24" left="24" right="24" top="24" /></padding>
+
+            <Label style="-fx-text-fill: #CCCC44; -fx-font-size: 24; -fx-font-weight: bold;" text="LOJA DA RUN" />
+            <Label maxWidth="560" style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Use moedas para comprar itens e buffs temporários. Tudo comprado aqui fica no Deck da run e será perdido quando você morrer." textAlignment="CENTER" wrapText="true" />
+            <Label fx:id="lblMoedas" style="-fx-text-fill: #FFD700; -fx-font-size: 15; -fx-font-weight: bold;" text="Moedas disponíveis: 0" />
+            <Label fx:id="lblFeedback" maxWidth="560" style="-fx-text-fill: #88FF88; -fx-font-size: 12; -fx-font-style: italic;" text="" wrapText="true" />
+
+            <VBox alignment="CENTER" spacing="10">
+                <HBox alignment="CENTER_LEFT" prefWidth="560" spacing="12" style="-fx-background-color: #1a2a1a; -fx-padding: 10; -fx-border-color: #44AA44; -fx-border-radius: 6; -fx-background-radius: 6;">
+                    <Label prefWidth="270" style="-fx-text-fill: white; -fx-font-size: 13;" text=" Poção de vida" />
+                    <Label prefWidth="105" style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Cura +30 HP" />
+                    <Button onAction="#comprarPocaoVida" prefWidth="120" style="-fx-background-color: #224422; -fx-text-fill: #88FF88;" text="3 moedas" />
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT" prefWidth="560" spacing="12" style="-fx-background-color: #162a16; -fx-padding: 10; -fx-border-color: #448844; -fx-border-radius: 6; -fx-background-radius: 6;">
+                    <Label prefWidth="270" style="-fx-text-fill: white; -fx-font-size: 13;" text=" Buff de Vida: +15 HP máximo" />
+                    <Label fx:id="lblVidaRunNivel" prefWidth="105" style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Nível 0/3" />
+                    <Button onAction="#upgradeVidaRun" prefWidth="120" style="-fx-background-color: #224422; -fx-text-fill: #88FF88;" text="5 moedas" />
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT" prefWidth="560" spacing="12" style="-fx-background-color: #2a1010; -fx-padding: 10; -fx-border-color: #AA4444; -fx-border-radius: 6; -fx-background-radius: 6;">
+                    <Label prefWidth="270" style="-fx-text-fill: white; -fx-font-size: 13;" text=" Buff de Dano: +2 dano nas skills" />
+                    <Label fx:id="lblDanoRunNivel" prefWidth="105" style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Nível 0/3" />
+                    <Button onAction="#upgradeDanoRun" prefWidth="120" style="-fx-background-color: #441111; -fx-text-fill: #FF8888;" text="5 moedas" />
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT" prefWidth="560" spacing="12" style="-fx-background-color: #1a1a2a; -fx-padding: 10; -fx-border-color: #4444AA; -fx-border-radius: 6; -fx-background-radius: 6;">
+                    <Label prefWidth="270" style="-fx-text-fill: white; -fx-font-size: 13;" text=" Buff de Clash: dados mais fortes" />
+                    <Label fx:id="lblClashRunNivel" prefWidth="105" style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Nível 0/3" />
+                    <Button onAction="#upgradeClashRun" prefWidth="120" style="-fx-background-color: #111133; -fx-text-fill: #8888FF;" text="7 moedas" />
+                </HBox>
+            </VBox>
+
+            <Button onAction="#voltar" prefHeight="34" prefWidth="150" style="-fx-background-color: #2a0a0a; -fx-text-fill: #CC4444; -fx-font-size: 13; -fx-border-color: #882222; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;" text="VOLTAR" />
+        </VBox>
+    </content>
+</ScrollPane>

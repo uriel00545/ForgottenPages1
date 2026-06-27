@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="480" prefWidth="640" spacing="18" style="-fx-background-color: #0d0d1a;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ForgottenPages.controller.SkillTreeController">
+    <padding><Insets bottom="40" left="80" right="80" top="40" /></padding>
+
+    <Label style="-fx-text-fill: #77DD77; -fx-font-size: 28; -fx-font-weight: bold;" text="🌳 ÁRVORE DE HABILIDADES" textAlignment="CENTER" />
+    <Label style="-fx-text-fill: #AAAAAA; -fx-font-size: 13;" text="Use pontos para comprar melhorias principais. Esta tela também fica disponível no fim da run." textAlignment="CENTER" wrapText="true" />
+    <Label fx:id="lblPontos" style="-fx-text-fill: #FFD700; -fx-font-size: 15;" text="Pontos disponíveis: 0" />
+    <Label fx:id="lblFeedback" style="-fx-text-fill: #88FF88; -fx-font-size: 13; -fx-font-style: italic;" text="" />
+
+    <VBox alignment="CENTER" spacing="12">
+
+        <HBox alignment="CENTER_LEFT" spacing="16" style="-fx-background-color: #1a2a1a; -fx-padding: 14; -fx-border-color: #448844; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;">
+            <Label prefWidth="230" style="-fx-text-fill: white; -fx-font-size: 14;" text="❤  +20 HP máximo" />
+            <Label fx:id="lblVidaNivel" prefWidth="75" style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Nível 0/3" />
+            <Label style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Custo: 1 ponto" />
+            <Button onAction="#upgradeVida" prefWidth="90" style="-fx-background-color: #224422; -fx-text-fill: #88FF88; -fx-border-color: #44AA44; -fx-border-radius: 4; -fx-background-radius: 4;" text="Comprar" />
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="16" style="-fx-background-color: #2a1010; -fx-padding: 14; -fx-border-color: #882222; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;">
+            <Label prefWidth="230" style="-fx-text-fill: white; -fx-font-size: 14;" text="⚔  +3 Dano base" />
+            <Label fx:id="lblDanoNivel" prefWidth="75" style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Nível 0/3" />
+            <Label style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Custo: 1 ponto" />
+            <Button onAction="#upgradeDano" prefWidth="90" style="-fx-background-color: #441111; -fx-text-fill: #FF8888; -fx-border-color: #AA4444; -fx-border-radius: 4; -fx-background-radius: 4;" text="Comprar" />
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="16" style="-fx-background-color: #1a1a2a; -fx-padding: 14; -fx-border-color: #444488; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;">
+            <Label prefWidth="230" style="-fx-text-fill: white; -fx-font-size: 14;" text="🎲  +1 Poder nos dados do Clash" />
+            <Label fx:id="lblClashNivel" prefWidth="75" style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Nível 0/3" />
+            <Label style="-fx-text-fill: #AAAAAA; -fx-font-size: 12;" text="Custo: 1 ponto" />
+            <Button onAction="#upgradeClash" prefWidth="90" style="-fx-background-color: #111133; -fx-text-fill: #8888FF; -fx-border-color: #4444AA; -fx-border-radius: 4; -fx-background-radius: 4;" text="Comprar" />
+        </HBox>
+
+    </VBox>
+
+    <Button onAction="#voltar" prefHeight="36" prefWidth="160" style="-fx-background-color: #2a0a0a; -fx-text-fill: #CC4444; -fx-font-size: 13; -fx-border-color: #882222; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;" text="← VOLTAR" />
+</VBox>

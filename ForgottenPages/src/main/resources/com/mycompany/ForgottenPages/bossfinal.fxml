@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.mycompany.ForgottenPages.controller.BossFinalController"
+            style="-fx-background-color: #0a0005;" prefWidth="800" prefHeight="600">
+
+    <top>
+        <HBox alignment="CENTER" spacing="30"
+              style="-fx-background-color: #1a0020; -fx-padding: 10;
+                     -fx-border-color: #AA00AA; -fx-border-width: 0 0 2 0;">
+            <Label text="⚔  DESAFIO FINAL  ⚔"
+                   style="-fx-text-fill: #FF44FF; -fx-font-size: 20; -fx-font-weight: bold;
+                          -fx-effect: dropshadow(gaussian, #FF00FF, 10, 0.5, 0, 0);"/>
+            <Label fx:id="lblFase" text="Fase 1"
+                   style="-fx-text-fill: #FF8800; -fx-font-size: 15; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="14" alignment="TOP_CENTER">
+            <padding><Insets top="16" right="20" bottom="0" left="20"/></padding>
+
+            <HBox spacing="40" alignment="CENTER">
+                <!-- BOSS -->
+                <VBox spacing="6" alignment="CENTER" prefWidth="250"
+                      style="-fx-background-color: #200010; -fx-border-color: #AA00AA;
+                             -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12;">
+                    <Label text="BOSS FINAL" style="-fx-text-fill: #FF44FF; -fx-font-size: 11; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblBossName" text="Guardião"
+                           style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                    <ProgressBar fx:id="pbBossHp" prefWidth="220" prefHeight="14" progress="1.0"
+                                 style="-fx-accent: #CC2222;"/>
+                    <Label fx:id="lblBossHp" text="500/500" style="-fx-text-fill: #CCCCCC; -fx-font-size: 12;"/>
+                </VBox>
+                <Label text="💀" style="-fx-font-size: 36;"/>
+                <!-- PLAYER -->
+                <VBox spacing="6" alignment="CENTER" prefWidth="230"
+                      style="-fx-background-color: #0d1f3c; -fx-border-color: #4488CC;
+                             -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12;">
+                    <Label text="PLAYER" style="-fx-text-fill: #4488CC; -fx-font-size: 11; -fx-font-weight: bold;"/>
+                    <ProgressBar fx:id="pbPlayerHp" prefWidth="200" prefHeight="14" progress="1.0"
+                                 style="-fx-accent: #44BB44;"/>
+                    <Label fx:id="lblPlayerHp" text="100/100" style="-fx-text-fill: #CCCCCC; -fx-font-size: 12;"/>
+                </VBox>
+            </HBox>
+
+            <Label fx:id="lblStatus" text=""
+                   style="-fx-text-fill: #FF8800; -fx-font-size: 13; -fx-font-style: italic;"/>
+            <TextArea fx:id="taLog" editable="false" prefHeight="155"
+                      style="-fx-control-inner-background: #0a0005; -fx-text-fill: #FF88FF;
+                             -fx-font-family: monospace; -fx-font-size: 12;
+                             -fx-border-color: #440044; -fx-border-width: 1;"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER" spacing="6"
+              style="-fx-background-color: #100015; -fx-border-color: #440044;
+                     -fx-border-width: 2 0 0 0; -fx-padding: 10;">
+            <Label text="SKILLS" style="-fx-text-fill: #888888; -fx-font-size: 11; -fx-font-weight: bold;"/>
+            <HBox fx:id="hboxSkills" alignment="CENTER" spacing="10"/>
+        </VBox>
+    </bottom>
+</BorderPane>

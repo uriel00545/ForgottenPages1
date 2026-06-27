@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.mycompany.ForgottenPages.controller.RankingController"
+      alignment="TOP_CENTER" spacing="16" prefWidth="640" prefHeight="480"
+      style="-fx-background-color: #0d0d1a;">
+    <padding><Insets top="30" bottom="30" left="40" right="40"/></padding>
+
+    <Label text="🏆  RANKING"
+           style="-fx-text-fill: #FFD700; -fx-font-size: 28; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="tabelaRanking" prefHeight="320"
+               style="-fx-background-color: #12122a; -fx-text-fill: white;
+                      -fx-table-cell-border-color: #333366;">
+        <columns>
+            <TableColumn fx:id="colNome" text="Jogador" prefWidth="220"/>
+            <TableColumn fx:id="colWave" text="Melhor Wave" prefWidth="160"/>
+            <TableColumn fx:id="colRuns" text="Runs"        prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <Button text="← VOLTAR" onAction="#voltar" prefWidth="160" prefHeight="36"
+            style="-fx-background-color: #2a0a0a; -fx-text-fill: #CC4444; -fx-font-size: 13;
+                   -fx-border-color: #882222; -fx-border-width: 1;
+                   -fx-border-radius: 5; -fx-background-radius: 5;"/>
+</VBox>

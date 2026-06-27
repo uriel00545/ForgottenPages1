@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mycompany.ForgottenPages.controller.BattleController"
+            style="-fx-background-color: #1a1a2e;"
+            prefWidth="800" prefHeight="600">
+
+    <!-- ══ TOPO: info de wave e turno ══ -->
+    <top>
+        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: #16213e; -fx-padding: 8;">
+            <Label fx:id="lblWave"  text="Wave 1"
+                   style="-fx-text-fill: #FFD700; -fx-font-size: 18; -fx-font-weight: bold;"/>
+            <Label fx:id="lblTurno" text="Turno: 1"
+                   style="-fx-text-fill: #AAAAAA; -fx-font-size: 14;"/>
+            <Label fx:id="lblPontos" text="Pontos: 0 | Moedas: 0"
+                   style="-fx-text-fill: #CCCC44; -fx-font-size: 13;"/>
+        </HBox>
+    </top>
+
+    <!-- ══ CENTRO: campo de batalha ══ -->
+    <center>
+        <VBox spacing="16" alignment="TOP_CENTER">
+            <padding><Insets top="16" right="20" bottom="0" left="20"/></padding>
+
+            <!-- Combatentes -->
+            <HBox spacing="40" alignment="CENTER">
+
+                <!-- INIMIGO -->
+                <VBox spacing="6" alignment="CENTER"
+                      style="-fx-background-color: #2a1010; -fx-border-color: #CC2222; -fx-border-width:2;
+                             -fx-border-radius:8; -fx-background-radius:8; -fx-padding: 12;"
+                      prefWidth="230">
+                    <Label text="INIMIGO" style="-fx-text-fill: #CC4444; -fx-font-size:11; -fx-font-weight:bold;"/>
+                    <Label fx:id="lblEnemyName" text="Inimigo"
+                           style="-fx-text-fill: white; -fx-font-size: 15; -fx-font-weight:bold;"/>
+                    <ProgressBar fx:id="pbEnemyHp" prefWidth="200" prefHeight="14" progress="1.0"
+                                 style="-fx-accent: #CC2222;"/>
+                    <Label fx:id="lblEnemyHp" text="100/100"
+                           style="-fx-text-fill: #CCCCCC; -fx-font-size:12;"/>
+                </VBox>
+
+                <!-- VS -->
+                <Label text="⚔" style="-fx-font-size:32; -fx-text-fill: #FFD700;"/>
+
+                <!-- PLAYER -->
+                <VBox spacing="6" alignment="CENTER"
+                      style="-fx-background-color: #0d1f3c; -fx-border-color: #4488CC; -fx-border-width:2;
+                             -fx-border-radius:8; -fx-background-radius:8; -fx-padding: 12;"
+                      prefWidth="230">
+                    <Label text="PLAYER" style="-fx-text-fill: #4488CC; -fx-font-size:11; -fx-font-weight:bold;"/>
+                    <Label fx:id="lblPlayerName" text="Player"
+                           style="-fx-text-fill: white; -fx-font-size: 15; -fx-font-weight:bold;"/>
+                    <ProgressBar fx:id="pbPlayerHp" prefWidth="200" prefHeight="14" progress="1.0"
+                                 style="-fx-accent: #44BB44;"/>
+                    <Label fx:id="lblPlayerHp" text="100/100"
+                           style="-fx-text-fill: #CCCCCC; -fx-font-size:12;"/>
+                </VBox>
+
+            </HBox>
+
+            <!-- Status -->
+            <Label fx:id="lblStatus" text="Escolha sua skill."
+                   style="-fx-text-fill: #FFD700; -fx-font-size:13; -fx-font-style:italic;"/>
+
+            <!-- Log de batalha -->
+            <TextArea fx:id="taLog" editable="false" prefHeight="160"
+                      style="-fx-control-inner-background: #0d0d1a; -fx-text-fill: #DDDDDD;
+                             -fx-font-family: monospace; -fx-font-size: 12;
+                             -fx-border-color: #333366; -fx-border-width:1;"/>
+
+        </VBox>
+    </center>
+
+    <!-- ══ BAIXO: skills do player ══ -->
+    <bottom>
+        <VBox style="-fx-background-color: #0f0f23; -fx-border-color: #333366; -fx-border-width: 2 0 0 0;"
+              alignment="CENTER" spacing="6">
+            <padding><Insets top="10" bottom="12" left="10" right="10"/></padding>
+            <Label text="SKILLS" style="-fx-text-fill: #888888; -fx-font-size:11; -fx-font-weight:bold;"/>
+            <HBox fx:id="hboxSkills" alignment="CENTER" spacing="10"/>
+        </VBox>
+    </bottom>
+
+</BorderPane>

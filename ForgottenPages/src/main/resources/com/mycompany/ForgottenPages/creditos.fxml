@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.mycompany.ForgottenPages.controller.CreditosController"
+      alignment="CENTER" spacing="14" prefWidth="640" prefHeight="480"
+      style="-fx-background-color: #0d0d1a;">
+    <padding><Insets top="50" bottom="40" left="80" right="80"/></padding>
+
+    <Label text="📜  CRÉDITOS"
+           style="-fx-text-fill: #FFD700; -fx-font-size: 28; -fx-font-weight: bold;"/>
+
+    <Label text="Desenvolvido por"
+           style="-fx-text-fill: #888888; -fx-font-size: 13;"/>
+    <Label text="Dupla: [Nome 1]  &amp;  [Nome 2]"
+           style="-fx-text-fill: #CCCCCC; -fx-font-size: 18; -fx-font-weight: bold;"/>
+    <Label text="ETEC / FATEC — Turma: [turma]"
+           style="-fx-text-fill: #AAAAAA; -fx-font-size: 14;"/>
+
+    <Region prefHeight="20"/>
+
+    <Label text="Tecnologias utilizadas"
+           style="-fx-text-fill: #888888; -fx-font-size: 13;"/>
+    <Label text="Java 17  •  JavaFX 17  •  Maven  •  PostgreSQL"
+           style="-fx-text-fill: #8888FF; -fx-font-size: 14;"/>
+    <Label text="FXML  •  JDBC  •  NetBeans IDE"
+           style="-fx-text-fill: #8888FF; -fx-font-size: 14;"/>
+
+    <Region prefHeight="20"/>
+    <Label text="Inspirado em: Limbus Company &amp; Library of Ruina"
+           style="-fx-text-fill: #666666; -fx-font-size: 12; -fx-font-style: italic;"/>
+
+    <Button text="← VOLTAR" onAction="#voltar" prefWidth="160" prefHeight="36"
+            style="-fx-background-color: #1a1a3a; -fx-text-fill: #8888CC; -fx-font-size: 13;
+                   -fx-border-color: #444488; -fx-border-width: 1;
+                   -fx-border-radius: 5; -fx-background-radius: 5;"/>
+</VBox>

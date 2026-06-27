@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.mycompany.ForgottenPages.controller.InvController"
+      alignment="TOP_CENTER" spacing="12" prefWidth="520" prefHeight="460"
+      style="-fx-background-color: #0d0d1a;">
+    <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+
+    <Label text="🎒  INVENTÁRIO"
+           style="-fx-text-fill: #FFD700; -fx-font-size: 22; -fx-font-weight: bold;"/>
+    <Label fx:id="lblNome" text=""
+           style="-fx-text-fill: #CCCCCC; -fx-font-size: 14;"/>
+    <Label fx:id="lblHp" text=""
+           style="-fx-text-fill: #88CC88; -fx-font-size: 13;"/>
+    <Label fx:id="lblRecursos" text=""
+           style="-fx-text-fill: #CCCC44; -fx-font-size: 12;"/>
+    <Label fx:id="lblDeck" text=""
+           style="-fx-text-fill: #88CCFF; -fx-font-size: 12;" wrapText="true"/>
+
+    <ListView fx:id="listSkills" prefHeight="210"
+              style="-fx-background-color: #12122a; -fx-control-inner-background: #12122a;
+                     -fx-text-fill: white; -fx-border-color: #333366; -fx-border-width: 1;"/>
+
+    <Button text="✖ FECHAR" onAction="#fechar" prefWidth="140" prefHeight="34"
+            style="-fx-background-color: #2a0a0a; -fx-text-fill: #CC4444; -fx-font-size: 13;
+                   -fx-border-color: #882222; -fx-border-width: 1;
+                   -fx-border-radius: 5; -fx-background-radius: 5;"/>
+</VBox>

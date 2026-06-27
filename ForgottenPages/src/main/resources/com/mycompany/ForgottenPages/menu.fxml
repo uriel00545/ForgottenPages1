@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="480" prefWidth="640" spacing="18" style="-fx-background-color: #0d0d1a;" styleClass="title_gold" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ForgottenPages.controller.MenuController">
+    <padding><Insets bottom="40" left="80" right="80" top="40" /></padding>
+
+    <Label style="-fx-text-fill: #C9A24A; -fx-font-size: 36; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, #FF6600, 12, 0.4, 0, 0);" text="FORGOTTEN  PAGES" />
+    <Label style="-fx-text-fill: #888888; -fx-font-size: 15; -fx-font-style: italic;" text="Inspirado em Library of Ruina" />
+
+    <Region prefHeight="10" />
+
+    <HBox alignment="CENTER" spacing="10">
+        <Label style="-fx-text-fill: #CCCCCC; -fx-font-size: 14;" />
+        <TextField fx:id="tfNome" prefWidth="220" promptText="Seu nome " style="-fx-background-color: #1a1a3a; -fx-text-fill: white;                           -fx-border-color: #FFD700; -fx-border-width: 1;                           -fx-border-radius: 4; -fx-background-radius: 4; -fx-font-size: 14;" />
+    </HBox>
+
+    <Button fx:id="jogar"
+            onAction="#jogar" prefHeight="42" prefWidth="260" style="-fx-background-color: #8B0000; -fx-text-fill: white; -fx-font-size: 16;                    -fx-font-weight: bold; -fx-border-color: #FFD700; -fx-border-width: 2;                    -fx-border-radius: 6; -fx-background-radius: 6;                    -fx-effect: dropshadow(gaussian, #FF0000, 8, 0.3, 0, 0);" text=" JOGAR" />
+
+    <Button fx:id="ranking"
+            onAction="#abrirRanking" prefHeight="36" prefWidth="260" style="-fx-background-color: #1a2a1a; -fx-text-fill: #88CC88; -fx-font-size: 14;                    -fx-border-color: #448844; -fx-border-width: 1;                    -fx-border-radius: 5; -fx-background-radius: 5;" text="  RANKING" />
+
+    <Button fx:id="creditos"
+            onAction="#abrirCreditos" prefHeight="36" prefWidth="260" style="-fx-background-color: #1a1a3a; -fx-text-fill: #8888CC; -fx-font-size: 14;                    -fx-border-color: #444488; -fx-border-width: 1;                    -fx-border-radius: 5; -fx-background-radius: 5;" text="  CRÉDITOS" />
+
+    <Button fx:id="encerrar" 
+            onAction="#fecharJogo" prefHeight="36" prefWidth="260" style="-fx-background-color: #2a0a0a; -fx-text-fill: #CC4444; -fx-font-size: 14;                    -fx-border-color: #882222; -fx-border-width: 1;                    -fx-border-radius: 5; -fx-background-radius: 5;" text="ENCERRAR" />
+</VBox>
