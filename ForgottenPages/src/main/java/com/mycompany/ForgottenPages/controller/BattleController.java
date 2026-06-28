@@ -39,13 +39,24 @@ public class BattleController {
     @FXML private Label lblTurno;
     @FXML private Label lblStatus;
     @FXML private Label lblPontos;
+    
+    @FXML private Label lblEnemyIntent;
+    @FXML private Label lblResumoClash;
+    @FXML private Label lblLuz;
 
     @FXML private ListView<String> listItensBatalha;
     @FXML private ListView<String> listDeckBatalha;
+    
+    
 
     private final GameState gs = GameState.getInstance();
     private Player player;
     private Inimigo inimigoAtual;
+    
+    private Skill skillInimigoPreparada;
+
+    private int luzAtual = 3;
+    private int luzMaxima = 3;
 
     private int turno = 1;
     private boolean aguardandoInput = true;
@@ -61,6 +72,7 @@ public class BattleController {
 
         gs.iniciarWave();
         inimigoAtual = gs.getInimigosAtuais().get(0);
+        prepararNovaRodada();
 
         atualizarUI();
         construirBotoesSkills();
@@ -73,6 +85,36 @@ public class BattleController {
 
         setStatus("Escolha sua skill para atacar.");
     }
+    
+    private void recuperarLuzNoInicioDoTurno() {
+    if (turno > 1 && turno % 3 == 1 && luzMaxima < 5) {
+        luzMaxima++;
+        log("✨ Sua Luz máxima aumentou para " + luzMaxima + ".");
+    }
+
+    luzAtual = Math.min(luzMaxima, luzAtual + 1);
+    
+      }
+    
+    private void prepararNovaRodada() {
+    if (inimigoAtual == null || !inimigoAtual.Tavivo()) {
+        return;
+    }
+
+    skillInimigoPreparada = escolherSkillInimigo();
+
+    if (lblResumoClash != null) {
+        lblResumoClash.setText("Escolha uma skill para disputar o clash.");
+    }
+}
+
+private Skill escolherSkillInimigo() {
+    if (inimigoAtual.getSkills().isEmpty()) {
+        throw new IllegalStateException(inimigoAtual.getNome() + " não possui skills.");
+    }
+
+    return inimigoAtual.getSkills().get((int) (Math.random() * inimigoAtual.getSkills().size()));
+}
 
     private void construirBotoesSkills() {
         hboxSkills.getChildren().clear();
@@ -98,21 +140,23 @@ public class BattleController {
     }
 
     private String formatarSkill(Skill s) {
-        return String.format(
-                "%s\n[%d + %dx%d]\n%s | %s",
-                s.getNome(),
-                s.getBasePower(),
-                s.getCoinPower(),
-                s.getCoinCount(),
-                s.getTipo(),
-                s.getDamageType()
-        );
-    }
+    return String.format(
+            "%s\nCusto: %d Luz\n[%d + %dx%d]\n%s | %s",
+            s.getNome(),
+            s.getCusto(),
+            s.getBasePower(),
+            s.getCoinPower(),
+            s.getCoinCount(),
+            s.getTipo(),
+            s.getDamageType()
+    );
+}
 
     private String formatarSkillLista(Skill s) {
     return String.format(
-            "%s  [base:%d  dado:%dx%d]  %s | %s",
+            "%s  | Custo:%d  [base:%d  dado:%dx%d]  %s | %s",
             s.getNome(),
+            s.getCusto(),
             s.getBasePower(),
             s.getCoinPower(),
             s.getCoinCount(),

@@ -5,6 +5,7 @@ import java.util.List;
 public class Player extends Personagem {
 
     private Deck deck = new Deck();
+    private Luz luz = new Luz();
 
     public Player(String nome, int hp, int maxHp) {
         super(nome, hp, maxHp);
@@ -18,10 +19,14 @@ public class Player extends Personagem {
         this.deck = deck != null ? deck : new Deck();
     }
 
-    /**
-     * Mantido por compatibilidade com os controllers antigos.
-     * As skills agora ficam dentro do Deck.
-     */
+    public Luz getLuz() {
+        return luz;
+    }
+
+    public void setLuz(Luz luz) {
+        this.luz = luz != null ? luz : new Luz();
+    }
+
     public List<Skill> getSkills() {
         return deck.getSkills();
     }
