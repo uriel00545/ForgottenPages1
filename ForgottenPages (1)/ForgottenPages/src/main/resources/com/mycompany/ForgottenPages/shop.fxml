@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootShop"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mycompany.ForgottenPages.controller.RunShopController"
+            prefWidth="980"
+            prefHeight="620"
+            style="-fx-background-color: black;">
+
+    <ImageView fx:id="imgBackground"
+               fitWidth="980"
+               fitHeight="620"
+               preserveRatio="false"
+               smooth="true"
+               cache="true"
+               AnchorPane.topAnchor="0"
+               AnchorPane.rightAnchor="0"
+               AnchorPane.bottomAnchor="0"
+               AnchorPane.leftAnchor="0">
+        <image>
+            <Image url="@loja.png"/>
+        </image>
+    </ImageView>
+
+    <Region style="-fx-background-color: rgba(0, 0, 0, 0.28);"
+            AnchorPane.topAnchor="0"
+            AnchorPane.rightAnchor="0"
+            AnchorPane.bottomAnchor="0"
+            AnchorPane.leftAnchor="0"/>
+
+    <StackPane alignment="CENTER"
+               AnchorPane.topAnchor="0"
+               AnchorPane.rightAnchor="0"
+               AnchorPane.bottomAnchor="0"
+               AnchorPane.leftAnchor="0">
+        <padding>
+            <Insets top="18" right="18" bottom="18" left="18"/>
+        </padding>
+
+        <VBox alignment="CENTER"
+              maxWidth="760"
+              spacing="14"
+              style="-fx-background-color: rgba(18, 18, 42, 0.78);
+                     -fx-border-color: #CCCC44;
+                     -fx-border-width: 2;
+                     -fx-border-radius: 12;
+                     -fx-background-radius: 12;
+                     -fx-effect: dropshadow(gaussian, #000000, 24, 0.7, 0, 0);">
+            <padding>
+                <Insets bottom="24" left="24" right="24" top="24"/>
+            </padding>
+
+            <Label style="-fx-text-fill: #CCCC44; -fx-font-size: 24; -fx-font-weight: bold;" text="LOJA DA RUN"/>
+            <Label maxWidth="620" style="-fx-text-fill: #DDDDDD; -fx-font-size: 12;" text="Use moedas para comprar itens e buffs temporários. Tudo comprado aqui fica no Deck da run e será perdido quando você morrer." textAlignment="CENTER" wrapText="true"/>
+            <Label fx:id="lblMoedas" style="-fx-text-fill: #FFD700; -fx-font-size: 15; -fx-font-weight: bold;" text="Moedas disponíveis: 0"/>
+            <Label fx:id="lblFeedback" maxWidth="620" style="-fx-text-fill: #88FF88; -fx-font-size: 12; -fx-font-style: italic;" text="" wrapText="true"/>
+
+            <VBox alignment="CENTER" spacing="10">
+                <HBox alignment="CENTER_LEFT" prefWidth="690" spacing="12" style="-fx-background-color: rgba(26, 42, 26, 0.90); -fx-padding: 10; -fx-border-color: #44AA44; -fx-border-radius: 6; -fx-background-radius: 6;">
+                    <Label prefWidth="330" style="-fx-text-fill: white; -fx-font-size: 13;" text="Poção de vida"/>
+                    <Label prefWidth="130" style="-fx-text-fill: #DDDDDD; -fx-font-size: 12;" text="Cura +30 HP"/>
+                    <Button onAction="#comprarPocaoVida" prefWidth="140" style="-fx-background-color: #224422; -fx-text-fill: #88FF88;" text="6 moedas"/>
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT" prefWidth="690" spacing="12" style="-fx-background-color: rgba(22, 42, 22, 0.90); -fx-padding: 10; -fx-border-color: #448844; -fx-border-radius: 6; -fx-background-radius: 6;">
+                    <Label prefWidth="330" style="-fx-text-fill: white; -fx-font-size: 13;" text="Buff de Vida: +2 HP máximo"/>
+                    <Label fx:id="lblVidaRunNivel" prefWidth="130" style="-fx-text-fill: #DDDDDD; -fx-font-size: 12;" text="Nível 0/100"/>
+                    <Button onAction="#upgradeVidaRun" prefWidth="140" style="-fx-background-color: #224422; -fx-text-fill: #88FF88;" text="20 moedas"/>
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT" prefWidth="690" spacing="12" style="-fx-background-color: rgba(42, 16, 16, 0.90); -fx-padding: 10; -fx-border-color: #AA4444; -fx-border-radius: 6; -fx-background-radius: 6;">
+                    <Label prefWidth="330" style="-fx-text-fill: white; -fx-font-size: 13;" text="Buff de Dano: +1 dano nas skills"/>
+                    <Label fx:id="lblDanoRunNivel" prefWidth="130" style="-fx-text-fill: #DDDDDD; -fx-font-size: 12;" text="Nível 0/100"/>
+                    <Button onAction="#upgradeDanoRun" prefWidth="140" style="-fx-background-color: #441111; -fx-text-fill: #FF8888;" text="25 moedas"/>
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT" prefWidth="690" spacing="12" style="-fx-background-color: rgba(26, 26, 42, 0.90); -fx-padding: 10; -fx-border-color: #4444AA; -fx-border-radius: 6; -fx-background-radius: 6;">
+                    <Label prefWidth="330" style="-fx-text-fill: white; -fx-font-size: 13;" text="Buff de Clash: +1 poder a cada 10 níveis"/>
+                    <Label fx:id="lblClashRunNivel" prefWidth="130" style="-fx-text-fill: #DDDDDD; -fx-font-size: 12;" text="Nível 0/100"/>
+                    <Button onAction="#upgradeClashRun" prefWidth="140" style="-fx-background-color: #111133; -fx-text-fill: #8888FF;" text="30 moedas"/>
+                </HBox>
+            </VBox>
+
+            <HBox alignment="CENTER" spacing="16">
+                <Button onAction="#irParaBatalha" prefHeight="42" prefWidth="220" style="-fx-background-color: #8B0000; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-border-color: #FFD700; -fx-border-width: 2; -fx-border-radius: 6; -fx-background-radius: 6;" text="ENTRAR EM BATALHA"/>
+                <Button onAction="#voltar" prefHeight="34" prefWidth="150" style="-fx-background-color: #2a0a0a; -fx-text-fill: #CC4444; -fx-font-size: 13; -fx-border-color: #882222; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;" text="VOLTAR"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+</AnchorPane>

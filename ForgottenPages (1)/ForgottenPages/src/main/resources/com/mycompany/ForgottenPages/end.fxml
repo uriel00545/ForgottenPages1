@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.mycompany.ForgottenPages.controller.EndController"
+      alignment="CENTER" spacing="20" prefWidth="640" prefHeight="480"
+      style="-fx-background-color: #0d0d1a;">
+    <padding><Insets top="60" bottom="40" left="80" right="80"/></padding>
+
+    <Label text="FIM DA RUN"
+           style="-fx-text-fill: #CC2222; -fx-font-size: 32; -fx-font-weight: bold;
+                  -fx-effect: dropshadow(gaussian, #FF0000, 10, 0.4, 0, 0);"/>
+
+    <Label fx:id="lblNome"      text="Jogador: -" style="-fx-text-fill: #CCCCCC; -fx-font-size: 16;"/>
+    <Label fx:id="lblWaveFinal" text="Wave: -"   style="-fx-text-fill: #FFD700; -fx-font-size: 20; -fx-font-weight: bold;"/>
+    <Label fx:id="lblPontos"    text="Pontos para a árvore: 0" style="-fx-text-fill: #88CC88; -fx-font-size: 16;"/>
+
+    <Region prefHeight="20"/>
+
+    <Button text="ÁRVORE DE HABILIDADES" onAction="#irArvore"
+            prefWidth="300" prefHeight="42"
+            style="-fx-background-color: #1a2a1a; -fx-text-fill: #88CC88; -fx-font-size: 14;
+                   -fx-font-weight: bold; -fx-border-color: #44AA44; -fx-border-width: 2;
+                   -fx-border-radius: 6; -fx-background-radius: 6;"/>
+
+    <Button text="VOLTAR AO MENU" onAction="#voltarMenu"
+            prefWidth="300" prefHeight="36"
+            style="-fx-background-color: #1a1a3a; -fx-text-fill: #8888CC; -fx-font-size: 14;
+                   -fx-border-color: #444488; -fx-border-width: 1;
+                   -fx-border-radius: 5; -fx-background-radius: 5;"/>
+</VBox>
