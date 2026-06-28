@@ -9,14 +9,16 @@ import com.mycompany.ForgottenPages.util.Navegar;
 
 import java.util.Map;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 
-/**
- * Menu principal do jogo.
- * Responsável por iniciar run, navegação e saída.
- */
 public class MenuController {
+
+    @FXML private StackPane rootMenu;
+    @FXML private ImageView imgFundoMenu;
 
     @FXML private TextField tfNome;
 
@@ -27,15 +29,32 @@ public class MenuController {
 
     @FXML
     public void initialize() {
+        configurarFundoResponsivo();
+
         EfeitoBotao.applyLoREffect(jogar);
         EfeitoBotao.applyLoREffect(encerrar);
         EfeitoBotao.applyLoREffect(ranking);
         EfeitoBotao.applyLoREffect(creditos);
     }
 
+    private void configurarFundoResponsivo() {
+        if (rootMenu == null || imgFundoMenu == null) {
+            return;
+        }
+
+        imgFundoMenu.fitWidthProperty().bind(rootMenu.widthProperty());
+        imgFundoMenu.fitHeightProperty().bind(rootMenu.heightProperty());
+        imgFundoMenu.setMouseTransparent(true);
+    }
+
     @FXML
     private void jogar() {
         String nome = obterNomeJogador();
+
+        if (!nomeValido(nome)) {
+            mostrarErroNome();
+            return;
+        }
 
         iniciarNovaRun(nome);
         Navegar.ir("area");
@@ -54,6 +73,33 @@ public class MenuController {
     @FXML
     private void fecharJogo() {
         System.exit(0);
+    }
+
+    private boolean nomeValido(String nome) {
+        return nome != null && !nome.trim().isEmpty();
+    }
+
+    private void mostrarErroNome() {
+        if (tfNome != null) {
+            tfNome.setStyle(
+                    "-fx-background-color: rgba(20, 20, 45, 0.95);" +
+                    "-fx-text-fill: white;" +
+                    "-fx-prompt-text-fill: #AAAAAA;" +
+                    "-fx-border-color: #FF3333;" +
+                    "-fx-border-width: 2;" +
+                    "-fx-border-radius: 4;" +
+                    "-fx-background-radius: 4;" +
+                    "-fx-font-size: 14;"
+            );
+
+            tfNome.requestFocus();
+        }
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Nome obrigatório");
+        alert.setHeaderText("Digite um nome para começar");
+        alert.setContentText("Você precisa colocar o nome do jogador antes de iniciar a run.");
+        alert.showAndWait();
     }
 
     private void iniciarNovaRun(String nome) {
@@ -90,17 +136,18 @@ public class MenuController {
             player.getSkills().stream()
                     .filter(s -> s.getTipo().name().equals("ATTACK"))
                     .forEach(s -> s.setBasePower(s.getBasePower() + (3 * dano)));
+
             progressao.setDanoNivel(dano);
         }
 
         if (clash > 0) {
             player.getSkills().forEach(s -> s.setCoinPower(s.getCoinPower() + clash));
+
             progressao.setClashNivel(clash);
         }
     }
 
     private String obterNomeJogador() {
-        String nome = (tfNome != null) ? tfNome.getText().trim() : "";
-        return nome.isEmpty() ? "Sinner" : nome;
+        return (tfNome != null) ? tfNome.getText().trim() : "";
     }
 }

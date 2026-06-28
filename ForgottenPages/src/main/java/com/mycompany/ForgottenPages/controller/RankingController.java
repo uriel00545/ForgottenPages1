@@ -52,26 +52,27 @@ public class RankingController {
     // DATA LOAD
     // =========================
     private void carregarRanking() {
-        List<String[]> dados = playerDAO.ranking();
+    List<String[]> dados = playerDAO.ranking();
 
-        ObservableList<RankEntry> lista = FXCollections.observableArrayList();
+    ObservableList<RankEntry> lista = FXCollections.observableArrayList();
 
-        for (int i = 0; i < dados.size(); i++) {
-            String[] row = dados.get(i);
+    for (int i = 0; i < dados.size(); i++) {
+        String[] row = dados.get(i);
 
-            lista.add(new RankEntry(
-                    i + 1,
-                    row[0],
-                    Integer.parseInt(row[1]),
-                    Integer.parseInt(row[2])
-            ));
-        }
-
-        if (tabelaRanking != null) {
-            tabelaRanking.setItems(lista);
-        }
+        lista.add(new RankEntry(
+                i + 1,
+                row[0],
+                Integer.parseInt(row[1]),
+                Integer.parseInt(row[2])
+        ));
     }
 
+    lista.sort((a, b) -> Integer.compare(b.getWave(), a.getWave()));
+
+    if (tabelaRanking != null) {
+        tabelaRanking.setItems(lista);
+    }
+}
     // =========================
     // NAVIGATION
     // =========================

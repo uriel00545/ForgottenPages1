@@ -1,28 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.mycompany.ForgottenPages.controller.InvController"
-      alignment="TOP_CENTER" spacing="12" prefWidth="520" prefHeight="460"
+      alignment="TOP_CENTER" spacing="12" prefWidth="560" prefHeight="500"
       style="-fx-background-color: #0d0d1a;">
-    <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
 
-    <Label text="🎒  INVENTÁRIO"
+    <padding>
+        <Insets top="20" bottom="20" left="20" right="20"/>
+    </padding>
+
+    <Label text="🎒 INVENTÁRIO / DECKS"
            style="-fx-text-fill: #FFD700; -fx-font-size: 22; -fx-font-weight: bold;"/>
+
     <Label fx:id="lblNome" text=""
            style="-fx-text-fill: #CCCCCC; -fx-font-size: 14;"/>
+
     <Label fx:id="lblHp" text=""
            style="-fx-text-fill: #88CC88; -fx-font-size: 13;"/>
+
     <Label fx:id="lblRecursos" text=""
            style="-fx-text-fill: #CCCC44; -fx-font-size: 12;"/>
-    <Label fx:id="lblDeck" text=""
-           style="-fx-text-fill: #88CCFF; -fx-font-size: 12;" wrapText="true"/>
 
-    <ListView fx:id="listSkills" prefHeight="210"
-              style="-fx-background-color: #12122a; -fx-control-inner-background: #12122a;
-                     -fx-text-fill: white; -fx-border-color: #333366; -fx-border-width: 1;"/>
+    <TabPane tabClosingPolicy="UNAVAILABLE" prefHeight="305"
+             style="-fx-background-color: #12122a;">
+
+        <Tab text="Inventário">
+            <content>
+                <VBox spacing="8" style="-fx-background-color: #12122a; -fx-padding: 12;">
+                    <Label text="Itens, recursos e buffs temporários da run"
+                           style="-fx-text-fill: #88CC88; -fx-font-size: 13; -fx-font-weight: bold;"/>
+
+                    <ListView fx:id="listItens" prefHeight="230"
+                              style="-fx-background-color: #12122a; -fx-control-inner-background: #12122a;
+                                     -fx-text-fill: white; -fx-border-color: #333366; -fx-border-width: 1;"/>
+                </VBox>
+            </content>
+        </Tab>
+
+        <Tab text="Decks">
+            <content>
+                <VBox spacing="8" style="-fx-background-color: #12122a; -fx-padding: 12;">
+                    <Label text="Skills/cartas equipadas pelo player"
+                           style="-fx-text-fill: #88CCFF; -fx-font-size: 13; -fx-font-weight: bold;"/>
+
+                    <Label fx:id="lblDeck" text=""
+                           style="-fx-text-fill: #88CCFF; -fx-font-size: 12;" wrapText="true"/>
+
+                    <ListView fx:id="listSkills" prefHeight="205"
+                              style="-fx-background-color: #12122a; -fx-control-inner-background: #12122a;
+                                     -fx-text-fill: white; -fx-border-color: #333366; -fx-border-width: 1;"/>
+                </VBox>
+            </content>
+        </Tab>
+
+    </TabPane>
 
     <Button text="✖ FECHAR" onAction="#fechar" prefWidth="140" prefHeight="34"
             style="-fx-background-color: #2a0a0a; -fx-text-fill: #CC4444; -fx-font-size: 13;

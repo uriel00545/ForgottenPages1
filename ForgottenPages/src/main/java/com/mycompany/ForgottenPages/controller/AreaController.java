@@ -18,17 +18,11 @@ import javafx.stage.Stage;
  */
 public class AreaController {
 
-    // =========================
-    // UI
-    // =========================
     @FXML private AnchorPane AreaCena;
     @FXML private Label lblWaveInfo;
     @FXML private Label lblPontos;
     @FXML private Label lblMoedas;
 
-    // =========================
-    // INIT
-    // =========================
     @FXML
     public void initialize() {
         Cena.setRootContainer(AreaCena);
@@ -37,9 +31,6 @@ public class AreaController {
         atualizarInfo();
     }
 
-    // =========================
-    // UI UPDATE
-    // =========================
     private void atualizarInfo() {
         GameState gs = GameState.getInstance();
 
@@ -65,9 +56,6 @@ public class AreaController {
         }
     }
 
-    // =========================
-    // NAVIGATION - SCENES
-    // =========================
     @FXML
     private void tfogueira() {
         Cena.mostrar("/com/mycompany/ForgottenPages/fogueira.fxml");
@@ -83,9 +71,6 @@ public class AreaController {
         Navegar.ir("battle");
     }
 
-    // =========================
-    // INVENTORY WINDOW
-    // =========================
     @FXML
     private void tinv() {
         try {
@@ -96,8 +81,8 @@ public class AreaController {
             Parent root = loader.load();
 
             Stage invStage = new Stage();
-            invStage.setTitle("Inventário");
-            invStage.setScene(new Scene(root, 520, 460));
+            invStage.setTitle("Inventário / Decks");
+            invStage.setScene(new Scene(root, 560, 500));
             invStage.initOwner(AreaCena.getScene().getWindow());
             invStage.show();
 

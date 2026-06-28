@@ -127,21 +127,32 @@ public class playerDAO {
 
     /** Top 10 para o ranking. Retorna lista de String "nome - wave X". */
     public static List<String[]> ranking() {
-        List<String[]> lista = new ArrayList<>();
-        String sql = "SELECT nome, melhor_wave, total_runs FROM jogadores ORDER BY melhor_wave DESC LIMIT 10";
-        try (Connection conn = Conexao.getConexao();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                lista.add(new String[]{
+    List<String[]> lista = new ArrayList<>();
+
+    String sql = """
+        SELECT nome, melhor_wave, total_runs
+          FROM jogadores
+         ORDER BY melhor_wave DESC, total_runs DESC, nome ASC
+         LIMIT 10
+        """;
+
+    try (Connection conn = Conexao.getConexao();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            lista.add(new String[]{
                     rs.getString("nome"),
                     String.valueOf(rs.getInt("melhor_wave")),
                     String.valueOf(rs.getInt("total_runs"))
-                });
-            }
-        } catch (SQLException e) {
-            System.err.println("[playerDAO] erro ao buscar ranking: " + e.getMessage());
+            });
         }
-        return lista;
+
+    } catch (SQLException e) {
+        System.err.println("[playerDAO] erro ao buscar ranking: " + e.getMessage());
     }
+
+    return lista;
+}
+    
 }

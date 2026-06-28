@@ -4,10 +4,12 @@ import com.mycompany.ForgottenPages.model.Clash;
 import com.mycompany.ForgottenPages.model.Skill;
 import com.mycompany.ForgottenPages.model.GameState;
 import com.mycompany.ForgottenPages.model.CombatAction;
+import com.mycompany.ForgottenPages.model.Deck;
 import com.mycompany.ForgottenPages.model.PlayerFactory;
 import com.mycompany.ForgottenPages.model.Inimigo;
 import com.mycompany.ForgottenPages.model.Personagem;
 import com.mycompany.ForgottenPages.model.Player;
+import com.mycompany.ForgottenPages.model.Progressao;
 import com.mycompany.ForgottenPages.util.Navegar;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -22,9 +24,6 @@ import java.util.List;
 
 public class BattleController {
 
-    // =========================
-    // FXML COMPONENTS
-    // =========================
     @FXML private Label lblWave;
     @FXML private Label lblPlayerName;
     @FXML private Label lblPlayerHp;
@@ -35,26 +34,23 @@ public class BattleController {
     @FXML private ProgressBar pbEnemyHp;
 
     @FXML private HBox hboxSkills;
-
     @FXML private TextArea taLog;
 
     @FXML private Label lblTurno;
     @FXML private Label lblStatus;
     @FXML private Label lblPontos;
 
-    // =========================
-    // GAME STATE
-    // =========================
+    @FXML private ListView<String> listItensBatalha;
+    @FXML private ListView<String> listDeckBatalha;
+
     private final GameState gs = GameState.getInstance();
     private Player player;
     private Inimigo inimigoAtual;
 
     private int turno = 1;
     private boolean aguardandoInput = true;
+    private boolean finalizado = false;
 
-    // =========================
-    // INITIALIZE
-    // =========================
     @FXML
     public void initialize() {
         if (gs.getPlayer() == null) {
@@ -78,13 +74,10 @@ public class BattleController {
         setStatus("Escolha sua skill para atacar.");
     }
 
-    // =========================
-    // SKILL UI
-    // =========================
     private void construirBotoesSkills() {
         hboxSkills.getChildren().clear();
 
-        for (Skill skill : player.getSkills()) {
+        for (Skill skill : player.getDeck().getSkills()) {
             Button btn = new Button(formatarSkill(skill));
 
             btn.setPrefWidth(130);
@@ -106,15 +99,27 @@ public class BattleController {
 
     private String formatarSkill(Skill s) {
         return String.format(
-            "%s\n[%d + %dx%d]\n%s | %s",
+                "%s\n[%d + %dx%d]\n%s | %s",
+                s.getNome(),
+                s.getBasePower(),
+                s.getCoinPower(),
+                s.getCoinCount(),
+                s.getTipo(),
+                s.getDamageType()
+        );
+    }
+
+    private String formatarSkillLista(Skill s) {
+    return String.format(
+            "%s  [base:%d  dado:%dx%d]  %s | %s",
             s.getNome(),
             s.getBasePower(),
             s.getCoinPower(),
             s.getCoinCount(),
             s.getTipo(),
             s.getDamageType()
-        );
-    }
+    );
+}
 
     private void estilizarBotaoSkill(Button btn, Skill skill) {
         String cor = switch (skill.getTipo()) {
@@ -124,19 +129,87 @@ public class BattleController {
         };
 
         btn.setStyle(String.format(
-            "-fx-background-color: %s;" +
-            " -fx-text-fill: white;" +
-            " -fx-border-color: #FFD700;" +
-            " -fx-border-width: 1.5;" +
-            " -fx-border-radius: 4;" +
-            " -fx-background-radius: 4;",
-            cor
+                "-fx-background-color: %s;" +
+                " -fx-text-fill: white;" +
+                " -fx-border-color: #FFD700;" +
+                " -fx-border-width: 1.5;" +
+                " -fx-border-radius: 4;" +
+                " -fx-background-radius: 4;",
+                cor
         ));
     }
 
-    // =========================
-    // TURN SYSTEM
-    // =========================
+    private void atualizarPainelInventarioBatalha() {
+        atualizarListaItensBatalha();
+        atualizarListaDeckBatalha();
+    }
+
+    private void atualizarListaItensBatalha() {
+        if (listItensBatalha == null) return;
+
+        Deck deck = gs.getDeck();
+        Progressao progressao = gs.getProgressao();
+
+        listItensBatalha.getItems().clear();
+
+        listItensBatalha.getItems().add("🧪 Poções de Vida: " + deck.getPocoesVida());
+        listItensBatalha.getItems().add("🪙 Moedas da run: " + progressao.getMoedas());
+        listItensBatalha.getItems().add("⭐ Pontos da Árvore: " + progressao.getPontos());
+        listItensBatalha.getItems().add("❤️ Vida temporária: nível " + deck.getVidaRunNivel() + " (+" + deck.getBonusVidaTotal() + ")");
+        listItensBatalha.getItems().add("🗡 Dano temporário: nível " + deck.getDanoRunNivel() + " (+" + deck.getBonusDanoTotal() + ")");
+        listItensBatalha.getItems().add("🎲 Clash temporário: nível " + deck.getClashRunNivel() + " (+" + deck.getBonusClashTotal() + ")");
+    }
+
+    private void atualizarListaDeckBatalha() {
+        if (listDeckBatalha == null) return;
+
+        listDeckBatalha.getItems().clear();
+
+        if (player == null || player.getDeck().getSkills().isEmpty()) {
+            listDeckBatalha.getItems().add("Nenhuma skill equipada no deck.");
+            return;
+        }
+
+        for (Skill skill : player.getDeck().getSkills()) {
+            listDeckBatalha.getItems().add(formatarSkillLista(skill));
+        }
+    }
+
+    @FXML
+    private void usarPocaoNaBatalha() {
+        if (!aguardandoInput) {
+            setStatus("Espere o turno terminar antes de usar item.");
+            return;
+        }
+
+        if (player == null) {
+            setStatus("Jogador não encontrado.");
+            return;
+        }
+
+        if (player.getHp() >= player.getMaxHp()) {
+            setStatus("HP já está cheio.");
+            return;
+        }
+
+        Deck deck = gs.getDeck();
+
+        if (!deck.gastarPocaoVida()) {
+            setStatus("Você não tem poções de vida no inventário.");
+            atualizarPainelInventarioBatalha();
+            return;
+        }
+
+        int hpAntes = player.getHp();
+
+        player.setHp(Math.min(player.getMaxHp(), player.getHp() + 30));
+
+        log("🧪 " + player.getNome() + " usou uma Poção de Vida: " + hpAntes + " → " + player.getHp());
+        setStatus("Poção usada. Escolha sua skill para atacar.");
+
+        atualizarUI();
+    }
+
     private void executarTurno(Skill skillPlayer) {
         aguardandoInput = false;
 
@@ -145,11 +218,11 @@ public class BattleController {
 
         log("\n─── Turno " + turno + " ───");
 
-        List<Personagem> playerList  = new ArrayList<>(List.of(player));
+        List<Personagem> playerList = new ArrayList<>(List.of(player));
         List<Personagem> inimigoList = new ArrayList<>(List.of(inimigoAtual));
 
         CombatAction acaoInimigo = inimigoAtual.getAi()
-            .chooseAction(inimigoAtual, inimigoList, playerList);
+                .chooseAction(inimigoAtual, inimigoList, playerList);
 
         Skill skillInimigo = acaoInimigo.getSkill();
 
@@ -169,9 +242,6 @@ public class BattleController {
         pausa.play();
     }
 
-    // =========================
-    // GAME FLOW CHECK
-    // =========================
     private void verificarEstado() {
         if (!player.Tavivo()) {
             log("\n💀 " + player.getNome() + " foi derrotado!");
@@ -184,9 +254,9 @@ public class BattleController {
             log("\n✅ " + inimigoAtual.getNome() + " foi derrotado!");
 
             List<Inimigo> vivos = gs.getInimigosAtuais()
-                .stream()
-                .filter(Personagem::Tavivo)
-                .toList();
+                    .stream()
+                    .filter(Personagem::Tavivo)
+                    .toList();
 
             if (vivos.isEmpty()) {
                 log("=== Wave " + gs.getCiclo().getWaveAtual() + " concluída! ===");
@@ -198,98 +268,87 @@ public class BattleController {
                 atualizarUI();
                 habilitarInput();
             }
+
             return;
         }
 
         habilitarInput();
     }
 
-    // =========================
-    // BATTLE END
-    // =========================
-    private boolean finalizado = false;
+    private void finalizarBatalha(boolean vitoria) {
+        if (finalizado) return;
 
-private void finalizarBatalha(boolean vitoria) {
+        finalizado = true;
+        hboxSkills.setDisable(true);
 
-    if (finalizado) return; // 🔒 impede execução dupla
-    finalizado = true;
+        PauseTransition pausa = new PauseTransition(Duration.seconds(2));
 
-    hboxSkills.setDisable(true);
+        pausa.setOnFinished(e -> {
+            Runnable acaoFinal;
 
-    PauseTransition pausa = new PauseTransition(Duration.seconds(2));
+            if (vitoria) {
+                int waveConcluida = gs.getCiclo().getWaveAtual();
 
-    pausa.setOnFinished(e -> {
+                gs.avancarWave();
 
-        Runnable acaoFinal;
+                int moedasGanhas = 3 + (waveConcluida / 2);
+                gs.getProgressao().ganharMoedas(moedasGanhas);
 
-        if (vitoria) {
-            int waveConcluida = gs.getCiclo().getWaveAtual();
+                log("🪙 Você ganhou " + moedasGanhas + " moedas para gastar nesta run.");
 
-            // Pontos alimentam a Arvore de Habilidades.
-            gs.avancarWave();
+                if (gs.getCiclo().getWaveAtual() > 10) {
+                    acaoFinal = () -> Navegar.ir("bossfinal");
+                } else {
+                    acaoFinal = () -> Navegar.ir("area");
+                }
 
-            // Moedas alimentam apenas a loja normal da run.
-            int moedasGanhas = 3 + (waveConcluida / 2);
-            gs.getProgressao().ganharMoedas(moedasGanhas);
-            log("🪙 Você ganhou " + moedasGanhas + " moedas para gastar nesta run.");
-
-            if (gs.getCiclo().getWaveAtual() > 10) {
-                acaoFinal = () -> Navegar.ir("bossfinal");
             } else {
-                acaoFinal = () -> Navegar.ir("area");
+                gs.finalizarRun();
+                acaoFinal = () -> Navegar.ir("end");
             }
 
-        } else {
-            gs.finalizarRun();
-            acaoFinal = () -> Navegar.ir("end");
-        }
-
-        javafx.application.Platform.runLater(() -> {
-            try {
-                acaoFinal.run();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            javafx.application.Platform.runLater(() -> {
+                try {
+                    acaoFinal.run();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            });
         });
-    });
 
-    pausa.play();
-}
+        pausa.play();
+    }
 
-    // =========================
-    // UI UPDATE
-    // =========================
     private void atualizarUI() {
         int wave = gs.getCiclo().getWaveAtual();
         boolean isBoss = gs.getCiclo().isBossWave();
 
         lblWave.setText("Wave " + wave + (isBoss ? " ⚠ BOSS" : ""));
 
-        // Player
         lblPlayerName.setText(player.getNome());
         lblPlayerHp.setText(player.getHp() + " / " + player.getMaxHp());
 
         pbPlayerHp.setProgress((double) player.getHp() / player.getMaxHp());
         colorirBarra(pbPlayerHp, (double) player.getHp() / player.getMaxHp());
 
-        // Enemy
         lblEnemyName.setText(inimigoAtual.getNome());
         lblEnemyHp.setText(inimigoAtual.getHp() + " / " + inimigoAtual.getMaxHp());
 
         pbEnemyHp.setProgress((double) inimigoAtual.getHp() / inimigoAtual.getMaxHp());
         colorirBarra(pbEnemyHp, (double) inimigoAtual.getHp() / inimigoAtual.getMaxHp());
 
-        // Turno e pontos
         lblTurno.setText("Turno: " + turno);
 
         if (lblPontos != null) {
-            lblPontos.setText("Pontos: " + gs.getProgressao().getPontos() + " | Moedas: " + gs.getProgressao().getMoedas());
+            lblPontos.setText(
+                    "Pontos: " + gs.getProgressao().getPontos()
+                    + " | Moedas: " + gs.getProgressao().getMoedas()
+            );
         }
+
+        atualizarPainelInventarioBatalha();
     }
 
-    // =========================
-    // UI HELPERS
-    // =========================
     private void colorirBarra(ProgressBar pb, double ratio) {
         String cor = ratio > 0.6 ? "#44BB44"
                 : ratio > 0.3 ? "#EE9900"
